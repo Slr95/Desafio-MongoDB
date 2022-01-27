@@ -1,0 +1,1 @@
+curl -s https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg > C:\Users\renzo\Desktop\asd\Campus Esolutions\Clase 11\test-child-process\file.bat
