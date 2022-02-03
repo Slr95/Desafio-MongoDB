@@ -25,7 +25,7 @@ userSchema.statics.findByLogin = async function(login) {
     return user
 }
 
-userSchema.pre('remove', function(next) { //pre asegura que algo se cumplio antes de hacer algo
+userSchema.pre('remove', function(next) {
     this.model('Message').deleteMany({user: this._id}, next)
 })
 

@@ -1,76 +1,161 @@
-const router = require('express').Router()
-const User = require('../models/user');
+const router = require("express").Router();
+
+router.get("/", async (req, res) => {
+  try {
+    const users = await req.context.models.users.find();
+    return res.send(users);
+  } catch (e) {
+    if (res.status(404)) {
+      return res.status(404).json({
+        message: "USUARIO NO ENCONTRADO",
+      });
+    } else if (res.status(400)) {
+      return res.status(400).json({
+        message: "ERROR DE PETICION",
+      });
+    } else if (res.status(403)) {
+      return res.status(403).json({
+        message: "ACCESO NO PERMITIDO",
+      });
+    } else if (res.status(408)) {
+      return res.status(408).json({
+        message: "TIMED OUT",
+      });
+    } else {
+      return res.status(500).json({
+        message: "ERROR DESCONOCIDO",
+      });
+    }
+  }
+});
 
 // Listado de usuarios
-router.get('/:userId', function(req, res) {
-    User.find({}, function(err, users) {
-      var userMap = {};
-  
-      users.forEach(function(user) {
-        userMap[user.id] = user;
+router.get("/:userId", async (req, res) => {
+  try {
+    const user = await req.context.models.users.findById(req.params.userId);
+    res.send(user);
+  } catch (e) {
+    if (res.status(404)) {
+      return res.status(404).json({
+        message: "USUARIO NO ENCONTRADO",
       });
-  
-      res.send(userMap);  
-    });
-  });
+    } else if (res.status(400)) {
+      return res.status(400).json({
+        message: "ERROR DE PETICION",
+      });
+    } else if (res.status(403)) {
+      return res.status(403).json({
+        message: "ACCESO NO PERMITIDO",
+      });
+    } else if (res.status(408)) {
+      return res.status(408).json({
+        message: "TIMED OUT",
+      });
+    } else {
+      return res.status(500).json({
+        message: "ERROR DESCONOCIDO",
+      });
+    }
+  }
+});
 
 // Crear usuario
-router.post('/', (req, res) => {
-    let body = req.body;
-
-    let user = new User({
-        username: body.name,
+router.post("/", async (req, res) => {
+  try {
+    const user = await req.context.models.users.create({
+      username: req.body.username,
     });
-
-    user.save((err, userDB) => {
-        if(err){
-            return res.status(400).json({
-               ok: false,
-               err  
-            });
-        }
-
-        res.json({
-            ok: true,
-            usuario: userDB
-        });
-    });
+    return res.send(user);
+  } catch (e) {
+    if (res.status(404)) {
+      return res.status(404).json({
+        message: "USUARIO NO ENCONTRADO",
+      });
+    } else if (res.status(400)) {
+      return res.status(400).json({
+        message: "ERROR DE PETICION",
+      });
+    } else if (res.status(403)) {
+      return res.status(403).json({
+        message: "ACCESO NO PERMITIDO",
+      });
+    } else if (res.status(408)) {
+      return res.status(408).json({
+        message: "TIMED OUT",
+      });
+    } else {
+      return res.status(500).json({
+        message: "ERROR DESCONOCIDO",
+      });
+    }
+  }
 });
 
 // Actualizar usuario
-router.put('/:userId', (req, res) => {
-    let id = req.params.id;
-
-    User.findByIdAndUpdate(id, {new: true, runValidators: true}, (err, userBD) => {
-        if(err){
-            return res.status(400).json({
-               ok: false,
-               err  
-            });
-        }
-
-        res.json({
-            ok: true,
-            usuario: userBD
-        });
-    });
+router.put("/:userId", async (req, res) => {
+  try {
+    const user = await req.context.models.users.findById(req.params.userId);
+    if (user) {
+      user.username = req.body.username;
+      await user.save();
+    }
+    return res.send(user);
+  } catch (e) {
+    if (res.status(404)) {
+      return res.status(404).json({
+        message: "USUARIO NO ENCONTRADO",
+      });
+    } else if (res.status(400)) {
+      return res.status(400).json({
+        message: "ERROR DE PETICION",
+      });
+    } else if (res.status(403)) {
+      return res.status(403).json({
+        message: "ACCESO NO PERMITIDO",
+      });
+    } else if (res.status(408)) {
+      return res.status(408).json({
+        message: "TIMED OUT",
+      });
+    } else {
+      return res.status(500).json({
+        message: "ERROR DESCONOCIDO",
+      });
+    }
+  }
 });
 
 // Eliminar usuario
-router.delete('/:userId', (req, res) => {
-    const { username } = req.params;
-    db.collection('username').findOneAndDelete({username: username}, 
-    (err, result) => {
-    if (err) return res.send(500, err)
-    console.log('got deleted');
-    res.redirect('/');
-    });
+router.delete("/:userId", async (req, res) => {
+  try {
+    const user = await req.context.models.users.findById(req.params.userId);
+    if (user) {
+      await user.remove();
+    }
+    return res.send(user);
+  } catch (e) {
+    if (res.status(404)) {
+      return res.status(404).json({
+        message: "USUARIO NO ENCONTRADO",
+      });
+    } else if (res.status(400)) {
+      return res.status(400).json({
+        message: "ERROR DE PETICION",
+      });
+    } else if (res.status(403)) {
+      return res.status(403).json({
+        message: "ACCESO NO PERMITIDO",
+      });
+    } else if (res.status(408)) {
+      return res.status(408).json({
+        message: "TIMED OUT",
+      });
+    } else {
+      return res.status(500).json({
+        message: "ERROR DESCONOCIDO",
+      });
+    }
+  }
 });
 
-module.exports = router
-
-const response = {
-    statusCode: 200,
-    message: 'Accepted',
-    data: {}
-}
+module.exports = router;

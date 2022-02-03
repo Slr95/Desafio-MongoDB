@@ -1,20 +1,40 @@
-const uuid = require('uuid')
-const router = require('express').Router()
+const uuid = require("uuid");
+const router = require("express").Router();
 
-router.get('/', (req, res) => {
-    return res.send(Object.values(req.context.models.messages))
-})
+router.get("/", async (req, res) => {
+  try {
+    const message = await req.context.models.messages.find();
+    return res.send(message);
+  } catch (err) {
+    return res.status(500).json({
+      code: "500",
+      message: "Internal Server Error",
+      data: err,
+    });
+  }
+});
 
-router.get('/:messageId', (req, res) => {
-    return res.send(req.context.models.messages[req.params.messageId])
-})
+router.get("/:messageId", async (req, res) => {
+  try {
+    const message = await req.context.models.messages.findById(
+      req.params.messageId
+    );
+    res.send(message);
+  } catch (err) {
+    return res.status(500).json({
+      code: "500",
+      message: "Internal Server Error",
+      data: err,
+    });
+  }
+});
 
-router.post('/', async (req, res) => {
-    const message = await req.context.models.messages.create({
-        text: req.body.text,
-        user: req.context.me.id
-    })
-    return res.send(message)
+router.post("/", async (req, res) => {
+  const message = await req.context.models.messages.create({
+    text: req.body.text,
+    user: req.context.me.id,
+  });
+  return res.send(message);
 
     /*
     const id = uuid.v4()
@@ -28,14 +48,32 @@ router.post('/', async (req, res) => {
     */
 })
 
-router.delete('/:messageId', async (req, res) => {
+router.put("/:messageId", async (req, res) => {
+    try {
+      const message = await req.context.models.messages.update(
+        req.params.messageId,
+        {
+          text: req.body.text,
+        }
+      );
+      res.send(message);
+    } catch (err) {
+      return res.status(500).json({
+        code: "500",
+        message: "Internal Server Error",
+        data: err,
+      });
+    }
+  });
+  
+  router.delete("/:messageId", async (req, res) => {
     const message = await req.context.models.messages.findById(
-        req.params.messageId
-    )
-    if(message) {
-        await message.remove()
-    } 
-    return res.send(message)
+      req.params.messageId
+    );
+    if (message) {
+      await message.remove();
+    }
+    return res.send(message);
 
 
     /*
@@ -46,6 +84,7 @@ router.delete('/:messageId', async (req, res) => {
     req.context.models.messages = otherMessages
     return res.send(message)
     */
-})
+
+});
 
 module.exports = router
