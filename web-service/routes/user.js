@@ -7,15 +7,15 @@ router.get("/", async (req, res) => {
   } catch (e) {
     if (res.status(404)) {
       return res.status(404).json({
-        message: "USUARIO NO ENCONTRADO",
+        message: "USER NOT FOUND",
       });
     } else if (res.status(400)) {
       return res.status(400).json({
-        message: "ERROR DE PETICION",
+        message: "BAD REQUEST",
       });
     } else if (res.status(403)) {
       return res.status(403).json({
-        message: "ACCESO NO PERMITIDO",
+        message: "FORBIDDEN ACCESS",
       });
     } else if (res.status(408)) {
       return res.status(408).json({
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
       });
     } else {
       return res.status(500).json({
-        message: "ERROR DESCONOCIDO",
+        message: "INTERNAL SERVER ERROR",
       });
     }
   }
@@ -37,15 +37,15 @@ router.get("/:userId", async (req, res) => {
   } catch (e) {
     if (res.status(404)) {
       return res.status(404).json({
-        message: "USUARIO NO ENCONTRADO",
+        message: "USER NOT FOUND",
       });
     } else if (res.status(400)) {
       return res.status(400).json({
-        message: "ERROR DE PETICION",
+        message: "BAD REQUEST",
       });
     } else if (res.status(403)) {
       return res.status(403).json({
-        message: "ACCESO NO PERMITIDO",
+        message: "FORBIDDEN ACCESS",
       });
     } else if (res.status(408)) {
       return res.status(408).json({
@@ -53,7 +53,7 @@ router.get("/:userId", async (req, res) => {
       });
     } else {
       return res.status(500).json({
-        message: "ERROR DESCONOCIDO",
+        message: "INTERNAL SERVER ERROR",
       });
     }
   }
@@ -69,15 +69,15 @@ router.post("/", async (req, res) => {
   } catch (e) {
     if (res.status(404)) {
       return res.status(404).json({
-        message: "USUARIO NO ENCONTRADO",
+        message: "USER NOT FOUND",
       });
     } else if (res.status(400)) {
       return res.status(400).json({
-        message: "ERROR DE PETICION",
+        message: "BAD REQUEST",
       });
     } else if (res.status(403)) {
       return res.status(403).json({
-        message: "ACCESO NO PERMITIDO",
+        message: "FORBIDDEN ACCESS",
       });
     } else if (res.status(408)) {
       return res.status(408).json({
@@ -85,7 +85,7 @@ router.post("/", async (req, res) => {
       });
     } else {
       return res.status(500).json({
-        message: "ERROR DESCONOCIDO",
+        message: "INTERNAL SERVER ERROR",
       });
     }
   }
@@ -103,15 +103,15 @@ router.put("/:userId", async (req, res) => {
   } catch (e) {
     if (res.status(404)) {
       return res.status(404).json({
-        message: "USUARIO NO ENCONTRADO",
+        message: "USER NOT FOUND",
       });
     } else if (res.status(400)) {
       return res.status(400).json({
-        message: "ERROR DE PETICION",
+        message: "BAD REQUEST",
       });
     } else if (res.status(403)) {
       return res.status(403).json({
-        message: "ACCESO NO PERMITIDO",
+        message: "FORBIDDEN ACCESS",
       });
     } else if (res.status(408)) {
       return res.status(408).json({
@@ -119,7 +119,7 @@ router.put("/:userId", async (req, res) => {
       });
     } else {
       return res.status(500).json({
-        message: "ERROR DESCONOCIDO",
+        message: "INTERNAL SERVER ERROR",
       });
     }
   }
@@ -136,15 +136,15 @@ router.delete("/:userId", async (req, res) => {
   } catch (e) {
     if (res.status(404)) {
       return res.status(404).json({
-        message: "USUARIO NO ENCONTRADO",
+        message: "USER NOT FOUND",
       });
     } else if (res.status(400)) {
       return res.status(400).json({
-        message: "ERROR DE PETICION",
+        message: "BAD REQUEST",
       });
     } else if (res.status(403)) {
       return res.status(403).json({
-        message: "ACCESO NO PERMITIDO",
+        message: "FORBIDDEN ACCESS",
       });
     } else if (res.status(408)) {
       return res.status(408).json({
@@ -152,7 +152,7 @@ router.delete("/:userId", async (req, res) => {
       });
     } else {
       return res.status(500).json({
-        message: "ERROR DESCONOCIDO",
+        message: "INTERNAL SERVER ERROR",
       });
     }
   }

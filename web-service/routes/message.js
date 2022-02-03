@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       code: "500",
-      message: "Internal Server Error",
+      message: "INTERNAL SERVER ERROR",
       data: err,
     });
   }
@@ -23,7 +23,7 @@ router.get("/:messageId", async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       code: "500",
-      message: "Internal Server Error",
+      message: "INTERNAL SERVER ERROR",
       data: err,
     });
   }
@@ -60,7 +60,7 @@ router.put("/:messageId", async (req, res) => {
     } catch (err) {
       return res.status(500).json({
         code: "500",
-        message: "Internal Server Error",
+        message: "INTERNAL SERVER ERROR",
         data: err,
       });
     }
